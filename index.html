@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Travel Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Travel Expense Tracker</h1>
+    <h2 id="travelerNameDisplay">Traveler: </h2>
+  </header>
+
+  <section id="traveler-section">
+    <input type="text" id="travelerNameInput" placeholder="Enter Traveler Name">
+    <button id="setTraveler">Set Traveler</button>
+  </section>
+
+  <section id="expense-form">
+    <input type="text" id="from" placeholder="From">
+    <input type="text" id="to" placeholder="To">
+
+    <select id="method">
+      <option value="">Select Method</option>
+      <option value="Bus">Bus</option>
+      <option value="Train">Train</option>
+      <option value="Auto">Auto</option>
+      <option value="Metro">Metro</option>
+    </select>
+
+    <input type="number" id="amount" placeholder="Amount" step="0.01">
+    <button id="addExpense">Add Travel Record</button>
+  </section>
+
+  <section id="expense-list">
+    <h2>Travel Records</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Method</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="expenseTable"></tbody>
+    </table>
+  </section>
+
+  <section id="summary">
+    <h2>Summary</h2>
+    <p>Total Travel Expenses: <span id="total">0</span></p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
