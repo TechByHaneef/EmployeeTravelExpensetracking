@@ -20,15 +20,16 @@ table {
   border-collapse: collapse;
 }
 th, td {
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 button {
   background: #333;
   color: #fff;
   border: none;
-  padding: 8px 12px;
+  padding: 10px 20px;
   cursor: pointer;
+  margin: 5px;
 }
 button:hover {
   background: #555;
@@ -37,16 +38,51 @@ select, input {
   margin: 5px;
   padding: 8px;
 }
-
 /* Remove +/- arrows from number input */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* Center align table headings and data */
-table th, 
-table td {
-  text-align: center;
+@media (max-width: 600px) {
+  body {
+    font-size: 18px; /* bigger text for readability */
+  }
+
+  table {
+    font-size: 16px;
+  }
+
+  table th, table td {
+    padding: 10px;
+  }
+
+  input, select, button {
+    width: 100%; /* full width controls */
+    box-sizing: border-box;
+  }
+
+  section {
+    margin: 10px;
+    padding: 8px;
+  }
 }
 
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* Make tables responsive */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* ensures cells shrink instead of overflowing */
+  word-wrap: break-word; /* wrap long text */
+}
+
+/* Ensure sections don’t overflow */
+section {
+  max-width: 100%;
+  overflow-x: auto;
+}
