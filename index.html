@@ -9,12 +9,12 @@
 <body>
   <header>
     <h1>Travel Expense Tracker</h1>
-    <h2 id="travelerNameDisplay">Employee: </h2>
+    <h2 id="employeeNameDisplay">Employee: </h2>
   </header>
 
-  <section id="traveler-section">
-    <input type="text" id="travelerNameInput" placeholder="Enter Employee Name">
-    <button id="setTraveler">Set Employee</button>
+  <section id="employee-section">
+    <input type="text" id="employeeNameInput" placeholder="Enter Employee Name">
+    <button id="setEmployee">Set Employee</button>
   </section>
 
   <section id="expense-form">
@@ -22,7 +22,6 @@
     <input type="text" id="to" placeholder="To">
 
     <select id="method">
-      <option value="">Select Method</option>
       <option value="Bus">Bus</option>
       <option value="Train">Train</option>
       <option value="Auto">Auto</option>
@@ -51,7 +50,6 @@
       </thead>
       <tbody id="expenseTable"></tbody>
     </table>
-    <!-- Export button placed BELOW the table -->
     <button id="exportExcel">Export to Excel</button>
   </section>
 
