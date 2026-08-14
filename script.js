@@ -28,9 +28,9 @@ request.onerror = function (event) {
   console.error("IndexedDB error:", event.target.errorCode);
 };
 
-// --- Traveler Name ---
+// --- Employee Name ---
 if (travelerName) {
-  travelerNameDisplay.textContent = "Traveler: " + travelerName;
+  travelerNameDisplay.textContent = "Employee: " + travelerName;
   travelerNameInput.style.display = "none";
   setTravelerBtn.style.display = "none";
 }
@@ -39,13 +39,14 @@ setTravelerBtn.addEventListener("click", () => {
   const inputName = travelerNameInput.value;
   if (inputName) {
     travelerName = inputName;
-    travelerNameDisplay.textContent = "Traveler: " + travelerName;
+    travelerNameDisplay.textContent = "Employee: " + travelerName;
     localStorage.setItem("travelerName", travelerName);
 
     travelerNameInput.style.display = "none";
     setTravelerBtn.style.display = "none";
   }
 });
+
 
 // --- Render Records ---
 function renderRecords() {
