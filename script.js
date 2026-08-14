@@ -79,7 +79,7 @@ function renderRecords() {
       tableBody.innerHTML += row;
     });
 
-    totalEl.textContent = total.toFixed(2);
+  totalEl.textContent = `₹${total.toFixed(2)}`;
   };
 }
 

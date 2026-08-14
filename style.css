@@ -160,4 +160,39 @@ th, td {
     margin-right: 10px;
     color: #333;
   }
+footer {
+  background-color: #222;       /* dark background */
+  padding: 20px;
+  text-align: center;
+}
 
+footer a {
+  color: #f1f1f1;               /* light text color */
+  text-decoration: none;        /* remove underline */
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer a:hover {
+  color: #00bcd4;               /* highlight color on hover */
+  transform: scale(1.05);       /* subtle zoom effect */
+}
+
+footer a:active {
+  color: #ff9800;               /* click color */
+}
+ body {
+  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
+}
+#total {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#total i {
+  margin-right: 4px;
+  font-size: 18px;
+  color: #fff; /* matches your summary section */
+}
+ 
