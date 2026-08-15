@@ -1,3 +1,8 @@
+// ===============================
+// Travel Expense Tracker Script
+// ===============================
+
+// --- DOM Elements ---
 const addBtn = document.getElementById("addExpense");
 const exportBtn = document.getElementById("exportExcel");
 const tableBody = document.getElementById("expenseTable");
@@ -7,9 +12,11 @@ const employeeNameDisplay = document.getElementById("employeeNameDisplay");
 const employeeNameInput = document.getElementById("employeeNameInput");
 
 let db;
-let employeeName = localStorage.getItem("employeeName") || "";
+let employeeName = localStorage.getItem("employeeName") || ""; // ✅ Load employee name from localStorage
 
-// --- IndexedDB Setup ---
+// ===============================
+// IndexedDB Setup
+// ===============================
 const request = indexedDB.open("TravelDB", 1);
 
 request.onupgradeneeded = function (event) {
@@ -21,15 +28,17 @@ request.onupgradeneeded = function (event) {
 
 request.onsuccess = function (event) {
   db = event.target.result;
-  renderRecords();
-  autoMonthlyReset();
+  renderRecords();      // ✅ Show existing records
+  autoMonthlyReset();   // ✅ Trigger monthly export/reset if today is 1st
 };
 
 request.onerror = function (event) {
   console.error("IndexedDB error:", event.target.errorCode);
 };
 
-// --- Employee Name ---
+// ===============================
+// Employee Name Setup
+// ===============================
 if (employeeName) {
   employeeNameDisplay.textContent = "Employee: " + employeeName;
   employeeNameInput.style.display = "none";
@@ -41,14 +50,16 @@ setEmployeeBtn.addEventListener("click", () => {
   if (inputName) {
     employeeName = inputName;
     employeeNameDisplay.textContent = "Employee: " + employeeName;
-    localStorage.setItem("employeeName", employeeName);
+    localStorage.setItem("employeeName", employeeName); // ✅ Save name persistently
 
     employeeNameInput.style.display = "none";
     setEmployeeBtn.style.display = "none";
   }
 });
 
-// --- Render Records ---
+// ===============================
+// Render Records in Table
+// ===============================
 function renderRecords() {
   const tx = db.transaction("records", "readonly");
   const store = tx.objectStore("records");
@@ -79,11 +90,13 @@ function renderRecords() {
       tableBody.innerHTML += row;
     });
 
-  totalEl.textContent = `₹${total.toFixed(2)}`;
+    totalEl.textContent = `₹${total.toFixed(2)}`; // ✅ Show total expenses
   };
 }
 
-// --- Add Record ---
+// ===============================
+// Add New Record
+// ===============================
 addBtn.addEventListener("click", () => {
   const today = new Date().toISOString().split("T")[0];
   const from = document.getElementById("from").value;
@@ -101,7 +114,7 @@ addBtn.addEventListener("click", () => {
       method,
       customerName,
       amount,
-      employee: employeeName   // ✅ now stored as employee
+      employee: employeeName   // ✅ Store employee name with record
     };
 
     const tx = db.transaction("records", "readwrite");
@@ -114,7 +127,9 @@ addBtn.addEventListener("click", () => {
   }
 });
 
-// --- Delete Record ---
+// ===============================
+// Delete Record
+// ===============================
 function deleteRecord(id) {
   const tx = db.transaction("records", "readwrite");
   const store = tx.objectStore("records");
@@ -123,7 +138,9 @@ function deleteRecord(id) {
   tx.oncomplete = () => renderRecords();
 }
 
-// --- Export to Excel ---
+// ===============================
+// Export Records to Excel (Manual)
+// ===============================
 exportBtn.addEventListener("click", () => {
   const tx = db.transaction("records", "readonly");
   const store = tx.objectStore("records");
@@ -145,11 +162,14 @@ exportBtn.addEventListener("click", () => {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Travel Records");
 
-    XLSX.writeFile(workbook, "Travel_Records.xlsx");
+    const safeEmployee = employeeName || "Unknown";
+    XLSX.writeFile(workbook, `${safeEmployee}_Travel_Records.xlsx`);
   };
 });
 
-// --- Auto Monthly Reset ---
+// ===============================
+// Auto Monthly Reset (Runs on 1st)
+// ===============================
 function autoMonthlyReset() {
   const today = new Date();
   if (today.getDate() === 1) {
@@ -169,16 +189,33 @@ function autoMonthlyReset() {
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Travel Records");
 
-        const lastMonth = today.getMonth();
-        const year = today.getFullYear();
-        const fileName = `Travel_Records_${year}_${lastMonth}.xlsx`;
+        // 🔑 Get previous month and year
+        let prevMonth = today.getMonth() - 1;
+        let year = today.getFullYear();
+        if (prevMonth < 0) {
+          prevMonth = 11; // December
+          year = year - 1;
+        }
+
+        const monthNames = [
+          "January","February","March","April","May","June",
+          "July","August","September","October","November","December"
+        ];
+        const monthName = monthNames[prevMonth];
+
+        // ✅ Filename format: employee_month_year_travel_record.xlsx
+        const safeEmployee = employeeName || "Unknown";
+        const fileName = `${safeEmployee}_${monthName}_${year}_travel_record.xlsx`;
+
+        // First save
         XLSX.writeFile(workbook, fileName);
 
+        // Then delete
         const clearTx = db.transaction("records", "readwrite");
         clearTx.objectStore("records").clear();
         clearTx.oncomplete = () => {
           renderRecords();
-          alert("Last month’s records exported and cleared.");
+          alert(`Exported ${monthName} ${year} records and cleared.`);
         };
       }
     };

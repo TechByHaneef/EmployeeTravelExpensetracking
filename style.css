@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
   margin: 0;
   background: #f4f4f4;
   overflow-x: hidden;
@@ -80,14 +80,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 8px;
   }
 }
-#exportExcel {
-  background: #0066cc;
-  margin-top: 15px;
-}
 
-#exportExcel:hover {
-  background: #004c99;
-}
 #summary {
   background: #0066cc;
   color: #fff;
@@ -96,6 +89,11 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
   font-size: 18px;
   margin-top: 20px;
+}
+
+#total {
+  font-weight: bold;
+  font-size: 18px;
 }
 
 #exportExcel {
@@ -111,88 +109,26 @@ input[type=number]::-webkit-outer-spin-button {
 #exportExcel:hover {
   background: #218838;
 }
-/* Default table layout (desktop) */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
 
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-/*@media (max-width: 1200px) {
-  table, thead, tbody, th, td, tr {
-    display: block;
-    width: 100%;
-  }
-*/
-
-  thead {
-    display: none; /* hide headers */
-  }
-
-  tbody tr {
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 10px;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-
-  td {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-    border: none;
-    border-bottom: 1px solid #eee;
-  }
-
-  td:last-child {
-    border-bottom: none;
-  }
-
-  td::before {
-    content: attr(data-label); /* show column name */
-    font-weight: bold;
-    margin-right: 10px;
-    color: #333;
-  }
 footer {
-  background-color: #222;       /* dark background */
+  background-color: #222;
   padding: 20px;
   text-align: center;
 }
 
 footer a {
-  color: #f1f1f1;               /* light text color */
-  text-decoration: none;        /* remove underline */
+  color: #f1f1f1;
+  text-decoration: none;
   font-size: 16px;
   font-weight: 500;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 footer a:hover {
-  color: #00bcd4;               /* highlight color on hover */
-  transform: scale(1.05);       /* subtle zoom effect */
+  color: #00bcd4;
+  transform: scale(1.05);
 }
 
 footer a:active {
-  color: #ff9800;               /* click color */
+  color: #ff9800;
 }
- body {
-  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
-}
-#total {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-#total i {
-  margin-right: 4px;
-  font-size: 18px;
-  color: #fff; /* matches your summary section */
-}
- 
