@@ -29,7 +29,7 @@ request.onupgradeneeded = function (event) {
 request.onsuccess = function (event) {
   db = event.target.result;
   renderRecords();      // ✅ Show existing records
-  autoMonthlyReset();   // ✅ Trigger monthly export/reset if today is 1st
+  autoMonthlyReset();   // ✅ Trigger monthly export/reset
 };
 
 request.onerror = function (event) {
@@ -142,6 +142,26 @@ function deleteRecord(id) {
 // Export Records to Excel (Manual)
 // ===============================
 exportBtn.addEventListener("click", () => {
+  const today = new Date();
+  const day = today.getDate();
+  let month = today.getMonth(); // 0 = January
+  let year = today.getFullYear();
+
+  // If it's the 1st, use previous month
+  if (day === 1) {
+    month = month - 1;
+    if (month < 0) {
+      month = 11; // December
+      year = year - 1;
+    }
+  }
+
+  const monthNames = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+  const monthName = monthNames[month];
+
   const tx = db.transaction("records", "readonly");
   const store = tx.objectStore("records");
   const request = store.getAll();
@@ -163,7 +183,10 @@ exportBtn.addEventListener("click", () => {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Travel Records");
 
     const safeEmployee = employeeName || "Unknown";
-    XLSX.writeFile(workbook, `${safeEmployee}_Travel_Records.xlsx`);
+    const fileName = `${safeEmployee}_${monthName}_${year}_travel_record.xlsx`;
+
+    XLSX.writeFile(workbook, fileName);
+    alert(`Exported ${monthName} ${year} records.`);
   };
 });
 
@@ -172,52 +195,58 @@ exportBtn.addEventListener("click", () => {
 // ===============================
 function autoMonthlyReset() {
   const today = new Date();
-  if (today.getDate() === 1) {
-    const tx = db.transaction("records", "readonly");
-    const store = tx.objectStore("records");
-    const request = store.getAll();
+  const day = today.getDate();
+  let month = today.getMonth(); // 0 = January
+  let year = today.getFullYear();
 
-    request.onsuccess = function () {
-      const records = request.result;
-      if (records.length > 0) {
-        const exportData = records.map(({ id, ...rest }) => ({
-          ...rest,
-          amount: rest.amount ?? "N/A"
-        }));
+  // If it's the 1st, use previous month
+  if (day === 1) {
+    month = month - 1;
+    if (month < 0) {
+      month = 11; // December
+      year = year - 1;
+    }
+  }
 
-        const worksheet = XLSX.utils.json_to_sheet(exportData);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Travel Records");
+  const monthNames = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+  const monthName = monthNames[month];
 
-        // 🔑 Get previous month and year
-        let prevMonth = today.getMonth() - 1;
-        let year = today.getFullYear();
-        if (prevMonth < 0) {
-          prevMonth = 11; // December
-          year = year - 1;
-        }
+  const tx = db.transaction("records", "readonly");
+  const store = tx.objectStore("records");
+  const request = store.getAll();
 
-        const monthNames = [
-          "January","February","March","April","May","June",
-          "July","August","September","October","November","December"
-        ];
-        const monthName = monthNames[prevMonth];
+  request.onsuccess = function () {
+    const records = request.result;
+    if (records.length > 0) {
+      const exportData = records.map(({ id, ...rest }) => ({
+        ...rest,
+        amount: rest.amount ?? "N/A"
+      }));
 
-        // ✅ Filename format: employee_month_year_travel_record.xlsx
-        const safeEmployee = employeeName || "Unknown";
-        const fileName = `${safeEmployee}_${monthName}_${year}_travel_record.xlsx`;
+      const worksheet = XLSX.utils.json_to_sheet(exportData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Travel Records");
 
-        // First save
-        XLSX.writeFile(workbook, fileName);
+      const safeEmployee = employeeName || "Unknown";
+      const fileName = `${safeEmployee}_${monthName}_${year}_travel_record.xlsx`;
 
-        // Then delete
+      // Save first
+      XLSX.writeFile(workbook, fileName);
+
+      // ✅ Only clear records if it's the 1st
+      if (day === 1) {
         const clearTx = db.transaction("records", "readwrite");
         clearTx.objectStore("records").clear();
         clearTx.oncomplete = () => {
           renderRecords();
           alert(`Exported ${monthName} ${year} records and cleared.`);
         };
+      } else {
+        alert(`Exported ${monthName} ${year} records (not cleared).`);
       }
-    };
-  }
+    }
+  };
 }
