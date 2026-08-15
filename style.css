@@ -2,18 +2,19 @@
    Global Styles
    =============================== */
 body {
-  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif; /* Clean modern font */
+  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
   margin: 0;
-  background: #f4f4f4; /* Light background */
-  overflow-x: hidden;
+  background: #f4f4f4;
+  overflow-x: hidden;   /* ✅ prevent horizontal scroll globally */
+  box-sizing: border-box;
 }
 
 /* ===============================
    Header
    =============================== */
 header {
-  background: #333; /* Dark header */
-  color: #fff;      /* White text */
+  background: #333;
+  color: #fff;
   padding: 10px;
   text-align: center;
 }
@@ -22,40 +23,39 @@ header {
    Section Layout
    =============================== */
 section {
-  margin: 20px;
-  padding: 10px;
+  margin: 20px auto;     /* ✅ center section with margin */
+  padding: 20px;         /* ✅ extra padding inside */
   background: #fff;
   border-radius: 5px;
-  max-width: 100%;
-  overflow-x: auto;
+  max-width: 95%;        /* ✅ keep section within viewport */
+  box-sizing: border-box;
+  overflow-x: hidden;    /* ✅ no horizontal scroll inside section */
 }
 
 /* ===============================
    Table Styles
    =============================== */
 table {
-  width: 100%;
+  width: 100%;           /* ✅ force table to fit section */
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: fixed;   /* ✅ cells shrink instead of overflowing */
   word-wrap: break-word;
 }
 
-/* ✅ Center headings, align data cells neatly */
 th {
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  text-align: center; /* Center headings */
+  text-align: center;
 }
 
 td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  text-align: center; /* Center most data */
+  text-align: center;
 }
 
-/* ✅ Right-align Amount column for numbers */
 td:nth-child(6) {
-  text-align: right;
+  text-align: right;     /* ✅ numbers aligned neatly */
 }
 
 /* ===============================
@@ -82,7 +82,6 @@ select, input {
   padding: 8px;
 }
 
-/* Remove number input arrows */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -111,8 +110,9 @@ input[type=number]::-webkit-outer-spin-button {
   }
 
   section {
-    margin: 10px;
-    padding: 8px;
+    margin: 10px auto;
+    padding: 12px;
+    max-width: 95%;
   }
 }
 
@@ -120,7 +120,7 @@ input[type=number]::-webkit-outer-spin-button {
    Summary Section
    =============================== */
 #summary {
-  background: #0066cc; /* Blue background */
+  background: #0066cc;
   color: #fff;
   padding: 15px;
   border-radius: 8px;
@@ -140,7 +140,7 @@ input[type=number]::-webkit-outer-spin-button {
 #exportExcel {
   display: block;
   margin: 20px auto;
-  background: #28a745; /* Green button */
+  background: #28a745;
   color: #fff;
   font-size: 16px;
   padding: 12px 24px;
@@ -148,20 +148,20 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #exportExcel:hover {
-  background: #218838; /* Darker green on hover */
+  background: #218838;
 }
 
 /* ===============================
    Footer
    =============================== */
 footer {
-  background-color: #222; /* Dark footer */
+  background-color: #222;
   padding: 20px;
   text-align: center;
 }
 
 footer a {
-  color: #f1f1f1; /* Light text */
+  color: #f1f1f1;
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
@@ -169,10 +169,62 @@ footer a {
 }
 
 footer a:hover {
-  color: #00bcd4; /* Cyan highlight */
-  transform: scale(1.05); /* Subtle zoom */
+  color: #00bcd4;
+  transform: scale(1.05);
 }
 
 footer a:active {
-  color: #ff9800; /* Orange when clicked */
+  color: #ff9800;
+}
+
+/* ===============================
+   Responsive Vertical Layout <1200px
+   =============================== */
+@media (max-width: 1200px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    margin: 0 15px 20px 15px; /* ✅ margin left/right so cards don’t crop */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* ✅ alternating background colors for readability */
+  tbody tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+
+  tbody tr:nth-child(odd) {
+    background: #fff;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;
+  }
 }
