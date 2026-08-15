@@ -1,63 +1,84 @@
 /* ===============================
    Global Reset
    =============================== */
+
 * {
-  box-sizing: border-box;   /* ✅ ensures padding/margin don’t push width */
+  box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
   background: #f4f4f4;
   font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
-  overflow-x: hidden;       /* ✅ no horizontal scroll globally */
 }
+
 
 /* ===============================
    Header
    =============================== */
+
 header {
+  width: 100%;
   background: #333;
   color: #fff;
   padding: 10px;
   text-align: center;
 }
 
+
 /* ===============================
    Section Layout
    =============================== */
+
 section {
-  margin: 20px auto;        /* ✅ center section */
+  width: calc(100% - 30px);
+  max-width: 1200px;
+  margin: 20px auto;
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  max-width: 95%;           /* ✅ keep inside viewport */
-  overflow-x: hidden;       /* ✅ no scroll inside section */
+  overflow: hidden;
 }
+
 
 /* ===============================
-   Table Styles
+   Table
    =============================== */
+
 table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
-  word-wrap: break-word;
-  margin: 0 auto;           /* ✅ center table */
+  table-layout: fixed;
+  margin: 0 auto;
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 td:nth-child(6) {
   text-align: right;
 }
 
+
 /* ===============================
    Buttons
    =============================== */
+
 button {
   background: #333;
   color: #fff;
@@ -65,18 +86,23 @@ button {
   padding: 10px 20px;
   cursor: pointer;
   margin: 5px;
+  border-radius: 4px;
 }
 
 button:hover {
   background: #555;
 }
 
+
 /* ===============================
    Inputs & Selects
    =============================== */
-select, input {
+
+select,
+input {
   margin: 5px;
   padding: 8px;
+  max-width: 100%;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -85,36 +111,11 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-/* ===============================
-   Responsive Design (Mobile)
-   =============================== */
-@media (max-width: 600px) {
-  body {
-    font-size: 18px;
-  }
-
-  table {
-    font-size: 16px;
-  }
-
-  th, td {
-    padding: 10px;
-  }
-
-  input, select, button {
-    width: 100%;
-  }
-
-  section {
-    margin: 10px auto;
-    padding: 12px;
-    max-width: 95%;
-  }
-}
 
 /* ===============================
-   Summary Section
+   Summary
    =============================== */
+
 #summary {
   background: #0066cc;
   color: #fff;
@@ -130,9 +131,11 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 18px;
 }
 
+
 /* ===============================
    Export Button
    =============================== */
+
 #exportExcel {
   display: block;
   margin: 20px auto;
@@ -147,10 +150,13 @@ input[type=number]::-webkit-outer-spin-button {
   background: #218838;
 }
 
+
 /* ===============================
    Footer
    =============================== */
+
 footer {
+  width: 100%;
   background-color: #222;
   padding: 20px;
   text-align: center;
@@ -173,26 +179,46 @@ footer a:active {
   color: #ff9800;
 }
 
+
 /* ===============================
-   Responsive Vertical Layout <1200px
+   Mobile
    =============================== */
+
 @media (max-width: 1200px) {
-  table, thead, tbody, th, td, tr {
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
     width: 100%;
+    max-width: 100%;
   }
 
   thead {
     display: none;
   }
 
+  tbody {
+    width: 100%;
+    max-width: 100%;
+  }
+
   tbody tr {
-    margin: 0 20px 20px 20px; /* ✅ margin left/right so cards don’t crop */
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 20px 0;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 12px;
     background: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* Prevent row from becoming wider */
+    min-width: 0;
+    overflow: hidden;
   }
 
   tbody tr:nth-child(even) {
@@ -201,11 +227,21 @@ footer a:active {
 
   td {
     display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
     justify-content: space-between;
+    align-items: flex-start;
+
     padding: 8px;
     border: none;
     border-bottom: 1px solid #eee;
-    text-align: left;
+
+    text-align: right;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   td:last-child {
@@ -214,8 +250,69 @@ footer a:active {
 
   td::before {
     content: attr(data-label);
+
     font-weight: bold;
     margin-right: 10px;
     color: #333;
+
+    /* Label cannot force width */
+    flex: 0 0 40%;
+    min-width: 0;
+
+    text-align: left;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+
+/* ===============================
+   Small Mobile Screens
+   =============================== */
+
+@media (max-width: 600px) {
+
+  body {
+    font-size: 16px;
+  }
+
+  header {
+    padding: 10px;
+  }
+
+  section {
+    width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
+    margin: 10px auto;
+    padding: 12px;
+  }
+
+  table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  tbody tr {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  input,
+  select,
+  button {
+    max-width: 100%;
+  }
+
+  #expense-form input,
+  #expense-form select,
+  #expense-form button {
+    width: 100%;
+  }
+
+  #exportExcel {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
