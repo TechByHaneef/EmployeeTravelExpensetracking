@@ -250,3 +250,16 @@ function autoMonthlyReset() {
     }
   };
 }
+const row = `
+  <tr>
+    <td data-label="Date">${rec.date}</td>
+    <td data-label="From">${rec.from}</td>
+    <td data-label="To">${rec.to}</td>
+    <td data-label="Method">${rec.method}</td>
+    <td data-label="Customer">${rec.customerName}</td>
+    <td data-label="Amount">${rec.amount ?? "N/A"}</td>
+    <td data-label="Actions">
+      <button onclick="deleteRecord(${rec.id})">Delete</button>
+    </td>
+  </tr>
+`;
