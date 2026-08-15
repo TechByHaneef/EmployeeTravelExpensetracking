@@ -1,17 +1,26 @@
+/* ===============================
+   Global Styles
+   =============================== */
 body {
-  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
+  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif; /* Clean modern font */
   margin: 0;
-  background: #f4f4f4;
+  background: #f4f4f4; /* Light background */
   overflow-x: hidden;
 }
 
+/* ===============================
+   Header
+   =============================== */
 header {
-  background: #333;
-  color: #fff;
+  background: #333; /* Dark header */
+  color: #fff;      /* White text */
   padding: 10px;
   text-align: center;
 }
 
+/* ===============================
+   Section Layout
+   =============================== */
 section {
   margin: 20px;
   padding: 10px;
@@ -21,6 +30,9 @@ section {
   overflow-x: auto;
 }
 
+/* ===============================
+   Table Styles
+   =============================== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -28,11 +40,27 @@ table {
   word-wrap: break-word;
 }
 
-th, td {
+/* ✅ Center headings, align data cells neatly */
+th {
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  text-align: center; /* Center headings */
 }
 
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center; /* Center most data */
+}
+
+/* ✅ Right-align Amount column for numbers */
+td:nth-child(6) {
+  text-align: right;
+}
+
+/* ===============================
+   Buttons
+   =============================== */
 button {
   background: #333;
   color: #fff;
@@ -46,17 +74,24 @@ button:hover {
   background: #555;
 }
 
+/* ===============================
+   Inputs & Selects
+   =============================== */
 select, input {
   margin: 5px;
   padding: 8px;
 }
 
+/* Remove number input arrows */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
+/* ===============================
+   Responsive Design (Mobile)
+   =============================== */
 @media (max-width: 600px) {
   body {
     font-size: 18px;
@@ -81,8 +116,11 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+/* ===============================
+   Summary Section
+   =============================== */
 #summary {
-  background: #0066cc;
+  background: #0066cc; /* Blue background */
   color: #fff;
   padding: 15px;
   border-radius: 8px;
@@ -96,10 +134,13 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 18px;
 }
 
+/* ===============================
+   Export Button
+   =============================== */
 #exportExcel {
   display: block;
   margin: 20px auto;
-  background: #28a745;
+  background: #28a745; /* Green button */
   color: #fff;
   font-size: 16px;
   padding: 12px 24px;
@@ -107,17 +148,20 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #exportExcel:hover {
-  background: #218838;
+  background: #218838; /* Darker green on hover */
 }
 
+/* ===============================
+   Footer
+   =============================== */
 footer {
-  background-color: #222;
+  background-color: #222; /* Dark footer */
   padding: 20px;
   text-align: center;
 }
 
 footer a {
-  color: #f1f1f1;
+  color: #f1f1f1; /* Light text */
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
@@ -125,10 +169,10 @@ footer a {
 }
 
 footer a:hover {
-  color: #00bcd4;
-  transform: scale(1.05);
+  color: #00bcd4; /* Cyan highlight */
+  transform: scale(1.05); /* Subtle zoom */
 }
 
 footer a:active {
-  color: #ff9800;
+  color: #ff9800; /* Orange when clicked */
 }
