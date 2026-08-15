@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Travel Expense Tracker</h1>
+    <h2 id="employeeNameDisplay">Employee: </h2>
+  </header>
+
+  <section id="employee-section">
+    <input type="text" id="employeeNameInput" placeholder="Enter Employee Name">
+    <button id="setEmployee">Set Employee</button>
+  </section>
+
+  <section id="expense-form">
+    <input type="text" id="from" placeholder="From">
+    <input type="text" id="to" placeholder="To">
+
+    <select id="method">
+      <option value="Bus">Bus</option>
+      <option value="Train">Train</option>
+      <option value="Auto">Auto</option>
+      <option value="Metro">Metro</option>
+      <option value="Bike">Bike</option>
+    </select>
+
+    <input type="text" id="customerName" placeholder="Customer Name">
+    <input type="number" id="amount" placeholder="Amount" step="0.01">
+    <button id="addExpense">Add Travel Record</button>
+  </section>
+
+  <section id="expense-list">
+    <h2>Travel Records</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Method</th>
+          <th>Customer Name</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="expenseTable"></tbody>
+    </table>
+    <button id="exportExcel">Export to Excel</button>
+  </section>
+
+  <section id="summary">
+    <h2>Summary</h2>
+    <p>Total Travel Expenses: <span id="total"> &#8377;0</span></p>
+  </section>
+<footer>
+  <a href="https://techbyhaneef.github.io/" target="_blank" rel="noopener noreferrer">Developed By TechByHaneef</a>
+</footer>
+  <!-- SheetJS for Excel export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="script.obfuscated.js"></script>
+</body>
+</html>
