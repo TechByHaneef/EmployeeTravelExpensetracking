@@ -27,7 +27,7 @@ section {
   padding: 20px;         /* ✅ extra padding inside */
   background: #fff;
   border-radius: 5px;
-  max-width: 95%;        /* ✅ keep section within viewport */
+  max-width: 95%;        /* ✅ keep section inside viewport */
   box-sizing: border-box;
   overflow-x: hidden;    /* ✅ no horizontal scroll inside section */
 }
@@ -38,8 +38,9 @@ section {
 table {
   width: 100%;           /* ✅ force table to fit section */
   border-collapse: collapse;
-  table-layout: fixed;   /* ✅ cells shrink instead of overflowing */
+  table-layout: fixed;
   word-wrap: break-word;
+  margin: 0 auto;        /* ✅ center table inside section */
 }
 
 th {
@@ -55,7 +56,7 @@ td {
 }
 
 td:nth-child(6) {
-  text-align: right;     /* ✅ numbers aligned neatly */
+  text-align: right;
 }
 
 /* ===============================
@@ -191,7 +192,7 @@ footer a:active {
   }
 
   tbody tr {
-    margin: 0 15px 20px 15px; /* ✅ margin left/right so cards don’t crop */
+    margin: 0 20px 20px 20px; /* ✅ margin left/right so cards don’t crop */
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 12px;
