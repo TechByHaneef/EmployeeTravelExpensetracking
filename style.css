@@ -1,12 +1,16 @@
 /* ===============================
-   Global Styles
+   Global Reset
    =============================== */
-body {
-  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
+* {
+  box-sizing: border-box;   /* ✅ ensures padding/margin don’t push width */
+}
+
+html, body {
   margin: 0;
+  padding: 0;
   background: #f4f4f4;
-  overflow-x: hidden;   /* ✅ prevent horizontal scroll globally */
-  box-sizing: border-box;
+  font-family: 'Roboto', 'Noto Sans', Arial, sans-serif;
+  overflow-x: hidden;       /* ✅ no horizontal scroll globally */
 }
 
 /* ===============================
@@ -23,33 +27,25 @@ header {
    Section Layout
    =============================== */
 section {
-  margin: 20px auto;     /* ✅ center section with margin */
-  padding: 20px;         /* ✅ extra padding inside */
+  margin: 20px auto;        /* ✅ center section */
+  padding: 20px;
   background: #fff;
   border-radius: 5px;
-  max-width: 95%;        /* ✅ keep section inside viewport */
-  box-sizing: border-box;
-  overflow-x: hidden;    /* ✅ no horizontal scroll inside section */
+  max-width: 95%;           /* ✅ keep inside viewport */
+  overflow-x: hidden;       /* ✅ no scroll inside section */
 }
 
 /* ===============================
    Table Styles
    =============================== */
 table {
-  width: 100%;           /* ✅ force table to fit section */
+  width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
   word-wrap: break-word;
-  margin: 0 auto;        /* ✅ center table inside section */
+  margin: 0 auto;           /* ✅ center table */
 }
 
-th {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-}
-
-td {
+th, td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: center;
@@ -101,13 +97,12 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 16px;
   }
 
-  table th, table td {
+  th, td {
     padding: 10px;
   }
 
   input, select, button {
     width: 100%;
-    box-sizing: border-box;
   }
 
   section {
@@ -200,13 +195,8 @@ footer a:active {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
 
-  /* ✅ alternating background colors for readability */
   tbody tr:nth-child(even) {
     background: #f9f9f9;
-  }
-
-  tbody tr:nth-child(odd) {
-    background: #fff;
   }
 
   td {
